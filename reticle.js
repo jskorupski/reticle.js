@@ -16,8 +16,18 @@ javascript:(function(){
 
 		var docHeight = undefined;
 		var docWidth = undefined;
-
-		$(document).on("mousemove", function(evt){
+	
+		var reticleFrozen = false;
+		
+		var thisDoc = $(document);
+		
+		thisDoc.keypress(function( event ) {
+			if ( event.which == 70 || event.which == 102) { /*f or F key*/
+				reticleFrozen = !reticleFrozen;
+			}
+		});
+				
+		thisDoc.on("mousemove touchmove", function(evt){
 			
 			if(!reticleobjectleft) {
 				
@@ -38,10 +48,9 @@ javascript:(function(){
 					"overflow": "visible",
 					"pointer-events": "none" 
 				  });
-				  reticleoverlay.appendTo("body");
-
-
-
+				reticleoverlay.appendTo("body");
+				  
+				 
 				/* Left and Top crosshair lines */
 				reticleobjectleft = $("<div/>", {
 					id: "reticleleft",    
@@ -75,12 +84,16 @@ javascript:(function(){
 					  
 			}
 
-			  
-			reticleobjectleft.css("left", (evt.pageX - docWidth) + "px");
-			reticleobjectleft.css("top", (evt.pageY - docHeight) + "px");
 			
-			reticleobjectright.css("left", (evt.pageX) + "px");
-			reticleobjectright.css("top", (evt.pageY) + "px");
+			if(!reticleFrozen) {
+				reticleobjectleft.css("left", (evt.pageX - docWidth) + "px");
+				reticleobjectleft.css("top", (evt.pageY - docHeight) + "px");
+
+				reticleobjectright.css("left", (evt.pageX) + "px");
+				reticleobjectright.css("top", (evt.pageY) + "px");
+			}
+			  
+
 		   
 		});
 	}
