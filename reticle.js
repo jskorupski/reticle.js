@@ -66,7 +66,7 @@ javascript:(function(){
 				})
 				.height(docHeight)
 				.css({
-					"opacity" : 0.75,
+					"opacity" : 0.80,
 					"position": "absolute",
 					"top": 0,
 					"left": 0,
@@ -87,8 +87,8 @@ javascript:(function(){
 					"position": "absolute",
 					"width": (docWidth) + "px",
 					"height": (docHeight) + "px",
-					"border-right": "1px solid #d00",
-					"border-bottom" : "1px solid #d00",
+					"border-right": "1px solid #FF00FF",
+					"border-bottom" : "1px solid #FF00FF",
 					"pointer-events": "none"
 				});
 
@@ -104,8 +104,8 @@ javascript:(function(){
 					"position": "absolute",
 					"width": (docWidth) + "px",
 					"height": (docHeight) + "px",
-					"border-left": "1px solid #d00",
-					"border-top" : "1px solid #d00",
+					"border-left": "1px solid #FF00FF",
+					"border-top" : "1px solid #FF00FF",
 					"pointer-events": "none"
 				});
 					
