@@ -118,8 +118,8 @@ javascript:(function(){
 			if(!reticleFrozen) {
 				 
 				if(evt.type === "touchmove") {
-					pageX = evt.originalevt.touches[0].pageX;
-					pageY = evt.originalevt.touches[0].pageY;
+					pageX = evt.originalEvent.touches[0].pageX;
+					pageY = evt.originalEvent.touches[0].pageY;
 				}
 				else {
 					pageX = evt.pageX;
