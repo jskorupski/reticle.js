@@ -44,7 +44,7 @@ javascript:(function(){
 					"top": 0,
 					"left": 0,
 					"width": "100%",
-					"z-index": 5000,
+					"z-index": 9007199254740992,
 					"overflow": "visible",
 					"pointer-events": "none" 
 				  });
