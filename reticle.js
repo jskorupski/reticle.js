@@ -29,22 +29,22 @@ javascript:(function(){
 			else if (ret_left && ret_right && reticleFrozen) { /*nudge mode*/
 				if (evt.which == 119 || evt.which == 87) { /*up: w or W*/
 					pageY--;
-					ret_left.css("top", (pageY - docHeight) + "px");
+					ret_left.css("top", (pageY - docHeight + 1) + "px");
 					ret_right.css("top", (pageY) + "px");
 				}
 				else if (evt.which == 115 || evt.which == 83) { /*down: s or S*/
 					pageY++;
-					ret_left.css("top", (pageY - docHeight) + "px");
+					ret_left.css("top", (pageY - docHeight + 1) + "px");
 					ret_right.css("top", (pageY) + "px");
 				}
 				else if (evt.which == 97 || evt.which == 65) { /*left: a or A*/
 					pageX--;
-					ret_left.css("left", (pageX - docWidth) + "px");
+					ret_left.css("left", (pageX - docWidth + 1) + "px");
 					ret_right.css("left", (pageX) + "px");
 				}
 				else if (evt.which == 100 || evt.which == 68) { /*right: d or D*/
 					pageX++;
-					ret_left.css("left", (pageX - docWidth) + "px");
+					ret_left.css("left", (pageX - docWidth + 1) + "px");
 					ret_right.css("left", (pageX) + "px");
 				}
 			}
@@ -89,7 +89,8 @@ javascript:(function(){
 					"height": (docHeight) + "px",
 					"border-right": "1px solid #FF00FF",
 					"border-bottom" : "1px solid #FF00FF",
-					"pointer-events": "none"
+					"pointer-events": "none",
+					"box-sizing": "border-box"
 				});
 
 				ret_left.appendTo(reticleoverlay);
@@ -106,7 +107,8 @@ javascript:(function(){
 					"height": (docHeight) + "px",
 					"border-left": "1px solid #FF00FF",
 					"border-top" : "1px solid #FF00FF",
-					"pointer-events": "none"
+					"pointer-events": "none",
+					"box-sizing": "border-box"
 				});
 					
 				ret_right.appendTo(reticleoverlay);
@@ -124,8 +126,8 @@ javascript:(function(){
 					pageY = evt.pageY;
 				}
 
-				ret_left.css("left", (pageX - docWidth) + "px");
-				ret_left.css("top", (pageY - docHeight) + "px");
+				ret_left.css("left", (pageX - docWidth + 1) + "px");
+				ret_left.css("top", (pageY - docHeight + 1) + "px");
 
 				ret_right.css("left", (pageX) + "px");
 				ret_right.css("top", (pageY) + "px");
