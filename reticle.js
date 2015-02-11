@@ -10,8 +10,9 @@ javascript:(function(){
 	}
 	 
 	function injectReticle() {
-		var reticleobjectleft = undefined;
-		var reticleobjectright = undefined;
+		var pageX, pageY;
+		var ret_left = undefined;
+		var ret_right = undefined;
 		var reticleoverlay = undefined;
 
 		var docHeight = undefined;
@@ -21,15 +22,41 @@ javascript:(function(){
 		
 		var thisDoc = $(document);
 		
-		thisDoc.keypress(function( event ) {
-			if ( event.which == 70 || event.which == 102) { /*f or F key*/
+		thisDoc.keypress(function( evt ) {
+			if (ret_left && ret_right &&  (evt.which == 70 || evt.which == 102)) { /*freeze: f or F*/
 				reticleFrozen = !reticleFrozen;
 			}
+			else if (ret_left && ret_right && reticleFrozen) { /*nudge mode*/
+				if (evt.which == 119 || evt.which == 87) { /*up: w or W*/
+					pageY--;
+					ret_left.css("top", (pageY - docHeight) + "px");
+					ret_right.css("top", (pageY) + "px");
+				}
+				else if (evt.which == 115 || evt.which == 83) { /*down: s or S*/
+					pageY++;
+					ret_left.css("top", (pageY - docHeight) + "px");
+					ret_right.css("top", (pageY) + "px");
+				}
+				else if (evt.which == 97 || evt.which == 65) { /*left: a or A*/
+					pageX--;
+					ret_left.css("left", (pageX - docWidth) + "px");
+					ret_right.css("left", (pageX) + "px");
+				}
+				else if (evt.which == 100 || evt.which == 68) { /*right: d or D*/
+					pageX++;
+					ret_left.css("left", (pageX - docWidth) + "px");
+					ret_right.css("left", (pageX) + "px");
+				}
+			}
+			
+			
 		});
 				
 		thisDoc.on("mousemove touchmove", function(evt){
+
+          
 			
-			if(!reticleobjectleft) {
+			if(!ret_left) { /*init elements*/
 				
 				docHeight = $(document).height();
 				docWidth = $(document).width();
@@ -52,7 +79,7 @@ javascript:(function(){
 				  
 				 
 				/* Left and Top crosshair lines */
-				reticleobjectleft = $("<div/>", {
+				ret_left = $("<div/>", {
 					id: "reticleleft",    
 
 				})
@@ -61,14 +88,15 @@ javascript:(function(){
 					"width": (docWidth) + "px",
 					"height": (docHeight) + "px",
 					"border-right": "1px solid #d00",
-					"border-bottom" : "1px solid #d00"
+					"border-bottom" : "1px solid #d00",
+					"pointer-events": "none"
 				});
 
-				reticleobjectleft.appendTo(reticleoverlay);
+				ret_left.appendTo(reticleoverlay);
 					
 
 				/* Right and bottom crosshair lines */
-				reticleobjectright = $("<div/>", {
+				ret_right = $("<div/>", {
 				   id: "reticleright",    
 
 				})
@@ -77,25 +105,31 @@ javascript:(function(){
 					"width": (docWidth) + "px",
 					"height": (docHeight) + "px",
 					"border-left": "1px solid #d00",
-					"border-top" : "1px solid #d00"
+					"border-top" : "1px solid #d00",
+					"pointer-events": "none"
 				});
 					
-				reticleobjectright.appendTo(reticleoverlay);
+				ret_right.appendTo(reticleoverlay);
 					  
 			}
 
-			
 			if(!reticleFrozen) {
-				reticleobjectleft.css("left", (evt.pageX - docWidth) + "px");
-				reticleobjectleft.css("top", (evt.pageY - docHeight) + "px");
+				 
+				if(evt.type === "touchmove") {
+					pageX = evt.originalevt.touches[0].pageX;
+					pageY = evt.originalevt.touches[0].pageY;
+				}
+				else {
+					pageX = evt.pageX;
+					pageY = evt.pageY;
+				}
 
-				reticleobjectright.css("left", (evt.pageX) + "px");
-				reticleobjectright.css("top", (evt.pageY) + "px");
+				ret_left.css("left", (pageX - docWidth) + "px");
+				ret_left.css("top", (pageY - docHeight) + "px");
+
+				ret_right.css("left", (pageX) + "px");
+				ret_right.css("top", (pageY) + "px");
 			}
-			  
-
-		   
 		});
 	}
 })();
-
