@@ -14,6 +14,7 @@ javascript:(function(){
 		var ret_left = undefined;
 		var ret_right = undefined;
 		var reticleoverlay = undefined;
+		var disabled = false;
 
 		var docHeight = undefined;
 		var docWidth = undefined;
@@ -25,6 +26,19 @@ javascript:(function(){
 		thisDoc.keypress(function( evt ) {
 			if (ret_left && ret_right &&  (evt.which == 70 || evt.which == 102)) { /*freeze: f or F*/
 				reticleFrozen = !reticleFrozen;
+			}
+			else if (evt.which == 81 || evt.which == 113) { /*disable: q or Q*/
+		
+					if(ret_left && ret_right) {
+						disabled = true;
+						reticleFrozen = false;
+						reticleoverlay.remove();
+						reticleoverlay = ret_left = ret_right = docHeight = docWidth = undefined;			
+					}
+					else {
+						disabled = !disabled;
+						if(!disabled) { reticleFrozen = false; }
+					}	
 			}
 			else if (ret_left && ret_right && reticleFrozen) { /*nudge mode*/
 				if (evt.which == 119 || evt.which == 87) { /*up: w or W*/
@@ -47,16 +61,17 @@ javascript:(function(){
 					ret_left.css("left", (pageX - docWidth + 1) + "px");
 					ret_right.css("left", (pageX) + "px");
 				}
+				
 			}
 			
-			
+
 		});
 				
 		thisDoc.on("mousemove touchmove", function(evt){
 
           
 			
-			if(!ret_left) { /*init elements*/
+			if(!ret_left && !disabled) { /*init elements*/
 				
 				docHeight = $(document).height();
 				docWidth = $(document).width();
