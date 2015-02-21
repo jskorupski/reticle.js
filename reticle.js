@@ -69,7 +69,6 @@ javascript:(function(){
 				
 		thisDoc.on("mousemove touchmove", function(evt){
 
-          
 			
 			if(!ret_left && !disabled) { /*init elements*/
 				
@@ -80,14 +79,14 @@ javascript:(function(){
 					id: "reticleoverlay", 
 				})
 				.height(docHeight)
+				.width(docWidth)
 				.css({
 					"opacity" : 0.80,
 					"position": "absolute",
 					"top": 0,
 					"left": 0,
-					"width": "100%",
 					"z-index": 9007199254740992,
-					"overflow": "visible",
+					"overflow": "hidden",
 					"pointer-events": "none" 
 				  });
 				reticleoverlay.appendTo("body");
@@ -98,10 +97,10 @@ javascript:(function(){
 					id: "reticleleft",    
 
 				})
+				.height(docHeight)
+				.width(docWidth)
 				.css({
 					"position": "absolute",
-					"width": (docWidth) + "px",
-					"height": (docHeight) + "px",
 					"border-right": "1px solid #FF00FF",
 					"border-bottom" : "1px solid #FF00FF",
 					"pointer-events": "none",
@@ -116,21 +115,20 @@ javascript:(function(){
 				   id: "reticleright",    
 
 				})
+				.height(docHeight)
+				.width(docWidth)
 				.css({
 					"position": "absolute",
-					"width": (docWidth) + "px",
-					"height": (docHeight) + "px",
 					"border-left": "1px solid #FF00FF",
 					"border-top" : "1px solid #FF00FF",
 					"pointer-events": "none",
 					"box-sizing": "border-box"
 				});
 					
-				ret_right.appendTo(reticleoverlay);
-					  
+				ret_right.appendTo(reticleoverlay);		  
 			}
 
-			if(!reticleFrozen) {
+			if(!reticleFrozen && !disabled) {
 				 
 				if(evt.type === "touchmove") {
 					pageX = evt.originalEvent.touches[0].pageX;
