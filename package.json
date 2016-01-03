@@ -1,0 +1,27 @@
+{
+  "name": "reticle.js",
+  "version": "1.0.0",
+  "description": "A bookmarklet that will overlay a full-page crosshair/reticle (that follows your mouse pointer) on whatever page you are on. This is useful for precisely aligning content on web pages as you are designing and editing them.",
+  "main": "gulpfile.js",
+  "scripts": {
+    "start": "gulp",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:jskorupski/reticle.js.git"
+  },
+  "keywords": [
+    "design",
+    "aligntment",
+    "overlay",
+    "bookmarklet"
+  ],
+  "author": "James Skorupski <james@skorupski.org>",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-inject": "^3.0.0",
+    "gulp-uglify": "^1.4.2"
+  }
+}
